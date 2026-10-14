@@ -1,0 +1,20 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd frontend && npm ci
+        - cd frontend && node -e "const fs=require('fs'); const url=process.env.API_URL || 'http://localhost:8000'; fs.writeFileSync('src/environments/environment.ts', 'export const environment = { production: true, apiUrl: ' + JSON.stringify(url) + ' };\n');"
+    test:
+      commands:
+        - cd frontend && npx ng test --watch=false --browsers=ChromeHeadless --code-coverage
+    build:
+      commands:
+        - cd frontend && npx ng build --configuration=production
+  artifacts:
+    baseDirectory: frontend/dist/smart-inventory-ui/browser
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - frontend/node_modules/**/*

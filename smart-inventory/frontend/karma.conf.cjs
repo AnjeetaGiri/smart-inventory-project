@@ -1,0 +1,1 @@
+module.exports = function (config) { config.set({ frameworks: ['jasmine'], plugins: [require('karma-jasmine'), require('karma-chrome-launcher'), require('karma-coverage')], reporters: ['progress', 'coverage'], browsers: ['ChromeHeadless'], singleRun: true, restartOnFileChange: false, coverageReporter: {type: 'text-summary'} }); };
